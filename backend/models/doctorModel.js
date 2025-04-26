@@ -29,4 +29,7 @@ const findDoctorByEmail = (email, callback) => {
   db.get("SELECT * FROM doctors WHERE email = ?", [email], callback);
 };
 
-export{ createDoctorTable, createDoctor, findDoctorByEmail };
+const findDoctorByLicenseNumber = (licenseNumber, callback) => {
+  db.get("SELECT * FROM doctors WHERE license_number = ?", [licenseNumber], callback);
+};
+export{ createDoctorTable, createDoctor, findDoctorByEmail, findDoctorByLicenseNumber};

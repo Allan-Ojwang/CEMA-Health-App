@@ -1,9 +1,26 @@
+import { useState } from "react";
 import { FaUsers, FaClipboardList, FaThLarge } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { motion } from "framer-motion";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import Modal from "./Modal"; // Import the Modal component
 
 function Sidebar() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+    
+    closeModal();
+    
+    navigate("/");
+  };
+
   return (
     <div className="w-64 h-screen bg-white border-r flex flex-col">
       {/* Rotating Logo */}
@@ -27,7 +44,7 @@ function Sidebar() {
       {/* Navigation Links */}
       <nav className="flex-1 p-4 space-y-2 mt-[-20px]">
         <NavLink
-          to="/home"
+          to="/dashboard/home" 
           className={({ isActive }) =>
             `flex items-center space-x-3 p-2 rounded hover:bg-gray-100 ${
               isActive ? "bg-gray-200 font-bold text-[#8b5e3c]" : ""
@@ -39,7 +56,7 @@ function Sidebar() {
         </NavLink>
 
         <NavLink
-          to="/program"
+          to="/dashboard/program" 
           className={({ isActive }) =>
             `flex items-center my-6 space-x-3 p-2 rounded hover:bg-gray-100 ${
               isActive ? "bg-gray-200 font-bold text-[#8b5e3c]" : ""
@@ -51,7 +68,7 @@ function Sidebar() {
         </NavLink>
 
         <NavLink
-          to="/client"
+          to="/dashboard/client" 
           className={({ isActive }) =>
             `flex items-center space-x-3 p-2 rounded hover:bg-gray-100 ${
               isActive ? "bg-gray-200 font-bold text-[#8b5e3c]" : ""
@@ -67,10 +84,21 @@ function Sidebar() {
       <a
         href="#"
         className="flex items-center space-x-3 p-2 rounded hover:bg-gray-100 mt-auto"
+        onClick={openModal} 
       >
         <CiLogout className="text-4xl" />
         <span>Sign Out</span>
       </a>
+
+      {/* Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title="Log Out"
+        message="Are you sure you want to log out?"
+        onConfirm={handleLogout} 
+        showButtons={true}
+      />
     </div>
   );
 }

@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(true);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    licenseNumber: "",
+    email: "",
+    password: "",
+  });
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleAuthMode = () => setIsSignUp(!isSignUp);
@@ -36,9 +48,86 @@ const Auth = () => {
     },
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (isSignUp) {
+      // Validate email format using a regex (only in sign-up mode)
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(formData.email)) {
+        toast.error("Please enter a valid email address.");
+        return;
+      }
+
+      // Validate password: at least 8 characters, and must contain a number (only in sign-up mode)
+      const passwordRegex = /^(?=.*\d).{8,}$/;
+      if (!passwordRegex.test(formData.password)) {
+        toast.error(
+          "Password must be at least 8 characters long and contain a number."
+        );
+        return;
+      }
+    }
+
+    if (isSignUp) {
+      // Call signup API if in signup mode
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/signup",
+          {
+            full_name: formData.fullName,
+            license_number: formData.licenseNumber,
+            email: formData.email,
+            password: formData.password,
+          }
+        );
+        toast.success("Sign up successful");
+
+        localStorage.setItem("doctorId", response.data.doctorId);
+        localStorage.setItem("doctorName", response.data.doctorName);
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+
+        navigate("/dashboard/home");
+      } catch (error) {
+        const errorMessage = error.response?.data?.message || error.message;
+        toast.error(`${errorMessage}`);
+      }
+    } else {
+      // Call signin API if in signin mode
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/signin",
+          {
+            email: formData.email,
+            password: formData.password,
+          }
+        );
+        toast.success("Sign in successful");
+
+        localStorage.setItem("doctorId", response.data.doctorId);
+        localStorage.setItem("doctorName", response.data.doctorName);
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+
+        navigate("/dashboard/home");
+      } catch (error) {
+        const errorMessage = error.response?.data?.message || error.message;
+        toast.error(`${errorMessage}`);
+      }
+    }
+  };
+
   return (
     <div className="w-full h-screen flex bg-[#d6c7bd] overflow-hidden relative">
-      {/* Left Side Animation */}
       <AnimatePresence mode="wait">
         <motion.div
           key={isSignUp ? "left-signup" : "left-signin"}
@@ -59,7 +148,7 @@ const Auth = () => {
                 <span className="text-[#8b5e3c] font-bold">Enroll</span>{" "}
                 clients.
                 <span className="text-[#8b5e3c] font-bold ml-1">
-                  Manage 
+                  Manage
                 </span>{" "}
                 programs.
                 <span className="text-[#8b5e3c] font-bold ml-1">
@@ -90,12 +179,15 @@ const Auth = () => {
             <h2 className="text-3xl font-bold mb-8 text-center">
               {isSignUp ? "Create Account" : "Sign In"}
             </h2>
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {isSignUp && (
                 <>
                   <div>
                     <input
                       type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
                       placeholder="Full Name"
                       className="w-full border-b-2 border-gray-300 focus:outline-none focus:border-black py-2"
                     />
@@ -103,6 +195,9 @@ const Auth = () => {
                   <div>
                     <input
                       type="text"
+                      name="licenseNumber"
+                      value={formData.licenseNumber}
+                      onChange={handleChange}
                       placeholder="Medical License Number"
                       className="w-full border-b-2 border-gray-300 focus:outline-none focus:border-black py-2"
                     />
@@ -112,6 +207,9 @@ const Auth = () => {
               <div>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Email Address"
                   className="w-full border-b-2 border-gray-300 focus:outline-none focus:border-black py-2"
                 />
@@ -119,6 +217,9 @@ const Auth = () => {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   placeholder="Password"
                   className="w-full border-b-2 border-gray-300 focus:outline-none focus:border-black py-2 pr-10"
                 />
@@ -159,7 +260,7 @@ const Auth = () => {
           key={isSignUp ? "auth-signup-image" : "auth-signin-image"}
           src="/auth.png"
           alt="Auth Visual"
-          className="absolute top-40 left-165 transform -translate-x-1/2 w-[450px] h-[450px] object-contain z-20"
+          className="absolute top-40 left-160 transform -translate-x-1/2 w-[300px] h-[450px] object-contain z-20"
           variants={imageVariants}
           initial="initial"
           animate={{

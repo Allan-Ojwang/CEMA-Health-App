@@ -30,38 +30,56 @@ const signup = async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  doctorModel.findDoctorByEmail(email, async (err, doctor) => {
-    if (doctor) {
+  doctorModel.findDoctorByEmail(email, async (err, doctorByEmail) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Server error" });
+    }
+
+    if (doctorByEmail) {
       return res.status(400).json({ message: "Email already registered" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newDoctor = {
-      full_name,
-      license_number,
-      email,
-      password: hashedPassword
-    };
-
-    doctorModel.createDoctor(newDoctor, (err, doctorId) => {
+    doctorModel.findDoctorByLicenseNumber(license_number, async (err, doctorByLicense) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ message: "Error creating doctor" });
+        return res.status(500).json({ message: "Server error" });
       }
 
-      const doctorData = { id: doctorId, full_name, email };
-      const { accessToken, refreshToken } = generateTokens(doctorData);
+      if (doctorByLicense) {
+        return res.status(400).json({ message: "License number already registered" });
+      }
 
-      res.status(201).json({
-        message: "Doctor registered successfully",
-        doctorId,
-        accessToken,
-        refreshToken
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const newDoctor = {
+        full_name,
+        license_number,
+        email,
+        password: hashedPassword
+      };
+
+      doctorModel.createDoctor(newDoctor, (err, doctorId) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ message: "Error creating doctor" });
+        }
+
+        const doctorData = { id: doctorId, full_name, email };
+        const { accessToken, refreshToken } = generateTokens(doctorData);
+
+        res.status(201).json({
+          message: "Doctor registered successfully",
+          doctorId,
+          full_name,
+          accessToken,
+          refreshToken
+        });
       });
     });
   });
 };
+
 
 const signin = (req, res) => {
   const { email, password } = req.body;
@@ -88,9 +106,12 @@ const signin = (req, res) => {
 
     const doctorData = { id: doctor.id, full_name: doctor.full_name, email: doctor.email };
     const { accessToken, refreshToken } = generateTokens(doctorData);
-
+    const doctorId = doctor.id;
+    const doctorName = doctor.full_name;
     res.status(200).json({
       message: "Login successful",
+      doctorId,
+      doctorName,
       accessToken,
       refreshToken
     });
