@@ -1,8 +1,9 @@
+import './database/setupDB.js';
 import express, { json } from "express";
 const app = express();
-import clientRoutes from "./routes/clientRoutes";
-import authRoutes from "./routes/authRoutes";
-import programRoutes from "./routes/programRoutes";
+import clientRoutes from "./routes/clientRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import programRoutes from "./routes/programRoutes.js";
 import enrollmentRoutes from "./routes/enrollmentRoutes.js";
 
 // Middleware

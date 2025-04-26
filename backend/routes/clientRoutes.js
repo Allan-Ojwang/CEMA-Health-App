@@ -5,8 +5,8 @@ import {
   viewClientProfile,
   deleteClient,
   listClients,
-} from "../controllers/clientController";
-import authenticateUser from "../middleware/authMiddleware.js"; 
+} from "../controllers/clientController.js";
+import authenticateUser from "../middlewares/authMiddleware.js"; 
 
 
 router.post("/", authenticateUser, registerClient);

@@ -1,7 +1,12 @@
 import { Router } from "express";
 const router = Router();
-import { enrollClient, removeEnrollment, listEnrollments,countEnrolledUsers  } from "../controllers/enrollmentController.js";
-import authenticateUser from "../middleware/authMiddleware.js";
+import {
+  enrollClient,
+  removeEnrollment,
+  listEnrollments,
+  countEnrolledUsers,
+} from "../controllers/enrollmentController.js";
+import authenticateUser from "../middlewares/authMiddleware.js";
 
 router.post("/", authenticateUser, enrollClient);
 
