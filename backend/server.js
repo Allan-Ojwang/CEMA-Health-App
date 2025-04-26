@@ -1,14 +1,20 @@
-const express = require('express');
+import express, { json } from "express";
 const app = express();
-const clientRoutes = require('./routes/clientRoutes');
+import clientRoutes from "./routes/clientRoutes";
+import authRoutes from "./routes/authRoutes";
+import programRoutes from "./routes/programRoutes";
+import enrollmentRoutes from "./routes/enrollmentRoutes.js";
 
 // Middleware
-app.use(express.json());
+app.use(json());
 
 // Routes
-app.use(clientRoutes);
+app.use("/api/clients", clientRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/programs", programRoutes);
+app.use("/api/enrollments", enrollmentRoutes);
 
 // Start the server
 app.listen(5000, () => {
-  console.log('Backend server running on http://localhost:5000');
+  console.log("Backend server running on http://localhost:5000");
 });
