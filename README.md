@@ -74,13 +74,13 @@ Below are screenshots of the application:
 
 Below is a short demo of the application:
 
-![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/demo-1.gif)
+![](https://raw.githubusercontent.com/Allan-Ojwang/CEMA-Health-App/main/demo-1.gif)
 
-![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/demo-2.gif)
+![](https://raw.githubusercontent.com/Allan-Ojwang/CEMA-Health-App/main/demo-2.gif)
 
-![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/demo-3.gif)
+![](https://raw.githubusercontent.com/Allan-Ojwang/CEMA-Health-App/main/demo-3.gif)
 
-![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/demo-4.gif)
+![](https://raw.githubusercontent.com/Allan-Ojwang/CEMA-Health-App/main/demo-4.gif)
 
 
 ## 🏠 Run Locally
