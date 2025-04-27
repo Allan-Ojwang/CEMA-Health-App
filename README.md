@@ -1,6 +1,6 @@
 # 🏥 Health Information System
 
-This web application helps manage health programs, providing the ability to create, update, search, and view programs efficiently. It is built with React for the frontend, TailwindCSS for styling, and connects to a backend API for CRUD operations on programs. The app also utilizes secure Bearer Token authentication to manage user sessions.
+This is a web application that helps doctors manage health programs, providing the ability to create, update, search and view programs efficiently with aim of enrolling clients to health program. It is built with React for the frontend, TailwindCSS for styling, and connects to a backend API for CRUD operations on programs. The app also utilizes secure Bearer Token authentication to manage user sessions.
 
 ## 🎯 Features
 
@@ -74,7 +74,13 @@ Below are screenshots of the application:
 
 Below is a short demo of the application:
 
-![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/demo.mp4)
+![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/demo-1.gif)
+
+![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/demo-2.gif)
+
+![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/demo-3.gif)
+
+![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/demo-4.gif)
 
 
 ## 🏠 Run Locally
