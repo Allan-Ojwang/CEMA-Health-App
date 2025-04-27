@@ -70,6 +70,13 @@ Below are screenshots of the application:
 **Client**
 ![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/client.PNG)
 
+## Demo
+
+Below is a short demo of the application:
+
+![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/demo.mp4)
+
+
 ## 🏠 Run Locally
 
 Clone the project
