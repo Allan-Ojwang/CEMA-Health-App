@@ -56,19 +56,19 @@ This web application helps manage health programs, providing the ability to crea
 Below are screenshots of the application:
 
 **Sign In**
-![](https://github.com/Allan-Ojwang/CEMA-Health-App.git/blob/master/signin.PNG)
+![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/signin.PNG)
 
 **Sign Up**
-![](https://github.com/Allan-Ojwang/CEMA-Health-App.git/blob/master/signup.PNG)
+![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/signup.PNG)
 
 **Home**
-![](https://github.com/Allan-Ojwang/CEMA-Health-App.git/blob/master/home.PNG)
+![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/home.PNG)
 
 **Program**
-![](https://github.com/Allan-Ojwang/CEMA-Health-App.git/blob/master/program.PNG)
+![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/program.PNG)
 
 **Client**
-![](https://github.com/Allan-Ojwang/CEMA-Health-App.git/blob/master/client.PNG)
+![](https://github.com/Allan-Ojwang/CEMA-Health-App/blob/main/client.PNG)
 
 ## 🏠 Run Locally
 
