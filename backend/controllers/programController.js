@@ -1,4 +1,4 @@
-import { createProgram, updateProgram, deleteProgram } from '../models/programModel.js';
+import { createProgram, updateProgram, deleteProgram, countActivePrograms, getAllPrograms } from '../models/programModel.js';
 
 
 const addProgram = (req, res) => {
@@ -36,4 +36,22 @@ const removeProgram = (req, res) => {
   });
 };
 
-export { addProgram, editProgram, removeProgram };
+const getActiveProgramsCount = (req, res) => {
+  countActivePrograms((err, result) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to count active programs." });
+    }
+    res.json({ activeProgramsCount: result.total });
+  });
+};
+
+const getAllProgram = (req, res) => {
+  getAllPrograms((err, programs) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to fetch programs." });
+    }
+    res.status(200).json(programs);
+  });
+};
+
+export { addProgram, editProgram, removeProgram, getActiveProgramsCount, getAllProgram };

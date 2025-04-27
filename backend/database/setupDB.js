@@ -16,8 +16,9 @@ db.serialize(() => {
     name TEXT NOT NULL,
     dob TEXT NOT NULL,
     gender TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL,
-    address TEXT NOT NULL
+    email TEXT NOT NULL,
+    address TEXT NOT NULL, 
+    age INTEGER
   )`);
 
   db.run(`CREATE TABLE IF NOT EXISTS programs (

@@ -3,10 +3,16 @@ import {
   addProgram,
   editProgram,
   removeProgram,
+  getActiveProgramsCount, 
+  getAllProgram
 } from "../controllers/programController.js";
 import authenticateUser from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
+
+router.get("/", authenticateUser, getAllProgram);
+
+router.get("/active-count", authenticateUser, getActiveProgramsCount);
 
 router.post("/", authenticateUser, addProgram);
 

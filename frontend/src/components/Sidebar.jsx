@@ -14,7 +14,10 @@ function Sidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
+    localStorage.removeItem("full_name");
+    localStorage.removeItem("doctorName");
+    localStorage.removeItem("doctorId");
+    localStorage.removeItem("refreshToken");
     
     closeModal();
     
