@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer position="top-right" />
       <Routes>
         <Route
           path="/"

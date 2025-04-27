@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaTrash } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function Client() {
   const [clients, setClients] = useState([]);
@@ -102,6 +105,7 @@ function Client() {
           age: "", // Reset age field
         });
         setShowModal(false);
+        toast.success("Client created successfully!");
       })
       .catch((error) => {
         console.error("Error adding client:", error);
